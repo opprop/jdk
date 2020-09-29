@@ -24,8 +24,6 @@
  */
 package com.sun.tools.javac.code;
 
-import org.checkerframework.checker.interning.qual.UsesObjectEquals;
-
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -131,7 +129,6 @@ public class DeferredCompletionFailureHandler {
         public void uninstall();
     }
 
-    @UsesObjectEquals
     private class DeferredCompleter implements Completer {
 
         private final Completer origCompleter;
