@@ -33,9 +33,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
-import org.checkerframework.common.aliasing.qual.Unique;
-import org.checkerframework.common.aliasing.qual.LeakedToResult;
-import org.checkerframework.common.aliasing.qual.NonLeaked;
 
 import java.util.Arrays;
 import jdk.internal.HotSpotIntrinsicCandidate;
@@ -115,7 +112,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @see     java.lang.String
  * @since   1.0
  */
-@AnnotatedFor({"aliasing", "lock", "nullness", "index"})
+@AnnotatedFor({"lock", "nullness", "index"})
  public final class StringBuffer
     extends AbstractStringBuilder
     implements java.io.Serializable, Comparable<StringBuffer>, CharSequence
@@ -135,7 +132,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * initial capacity of 16 characters.
      */
     @HotSpotIntrinsicCandidate
-    public @Unique StringBuffer() {
+    public StringBuffer() {
         super(16);
     }
 
@@ -148,7 +145,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      *             argument is less than {@code 0}.
      */
     @HotSpotIntrinsicCandidate
-    public @Unique StringBuffer(@NonNegative int capacity) {
+    public StringBuffer(@NonNegative int capacity) {
         super(capacity);
     }
 
@@ -160,7 +157,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @param   str   the initial contents of the buffer.
      */
     @HotSpotIntrinsicCandidate
-    public @Unique StringBuffer(String str) {
+    public StringBuffer(String str) {
         super(str.length() + 16);
         append(str);
     }
@@ -178,7 +175,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @param      seq   the sequence to copy.
      * @since 1.5
      */
-    public @Unique StringBuffer(CharSequence seq) {
+    public StringBuffer(CharSequence seq) {
         this(seq.length() + 16);
         append(seq);
     }
@@ -313,7 +310,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked @Nullable Object obj) {
+    public synchronized StringBuffer append(@Nullable Object obj) {
         toStringCache = null;
         super.append(String.valueOf(obj));
         return this;
@@ -321,7 +318,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
 
     @Override
     @HotSpotIntrinsicCandidate
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked @Nullable String str) {
+    public synchronized StringBuffer append(@Nullable String str) {
         toStringCache = null;
         super.append(str);
         return this;
@@ -351,7 +348,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @return  a reference to this object.
      * @since 1.4
      */
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked @Nullable StringBuffer sb) {
+    public synchronized StringBuffer append(@Nullable StringBuffer sb) {
         toStringCache = null;
         super.append(sb);
         return this;
@@ -361,7 +358,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @since 1.8
      */
     @Override
-    synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked AbstractStringBuilder asb) {
+    synchronized StringBuffer append(AbstractStringBuilder asb) {
         toStringCache = null;
         super.append(asb);
         return this;
@@ -389,7 +386,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @since 1.5
      */
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked @Nullable CharSequence s) {
+    public synchronized StringBuffer append(@Nullable CharSequence s) {
         toStringCache = null;
         super.append(s);
         return this;
@@ -400,7 +397,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @since      1.5
      */
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked @Nullable CharSequence s, @IndexOrHigh({"#1"}) int start, @IndexOrHigh({"#1"}) int end)
+    public synchronized StringBuffer append(@Nullable CharSequence s, @IndexOrHigh({"#1"}) int start, @IndexOrHigh({"#1"}) int end)
     {
         toStringCache = null;
         super.append(s, start, end);
@@ -408,7 +405,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked char[] str) {
+    public synchronized StringBuffer append(char[] str) {
         toStringCache = null;
         super.append(str);
         return this;
@@ -418,14 +415,14 @@ import jdk.internal.HotSpotIntrinsicCandidate;
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked char[] str, @IndexOrHigh({"#1"}) int offset, @IndexOrHigh({"#1"}) int len) {
+    public synchronized StringBuffer append(char[] str, @IndexOrHigh({"#1"}) int offset, @IndexOrHigh({"#1"}) int len) {
         toStringCache = null;
         super.append(str, offset, len);
         return this;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked boolean b) {
+    public synchronized StringBuffer append(boolean b) {
         toStringCache = null;
         super.append(b);
         return this;
@@ -433,7 +430,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
 
     @Override
     @HotSpotIntrinsicCandidate
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked char c) {
+    public synchronized StringBuffer append(char c) {
         toStringCache = null;
         super.append(c);
         return this;
@@ -441,7 +438,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
 
     @Override
     @HotSpotIntrinsicCandidate
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked int i) {
+    public synchronized StringBuffer append(int i) {
         toStringCache = null;
         super.append(i);
         return this;
@@ -458,21 +455,21 @@ import jdk.internal.HotSpotIntrinsicCandidate;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked long lng) {
+    public synchronized StringBuffer append(long lng) {
         toStringCache = null;
         super.append(lng);
         return this;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked float f) {
+    public synchronized StringBuffer append(float f) {
         toStringCache = null;
         super.append(f);
         return this;
     }
 
     @Override
-    public synchronized StringBuffer append(@LeakedToResult StringBuffer this, @NonLeaked double d) {
+    public synchronized StringBuffer append(double d) {
         toStringCache = null;
         super.append(d);
         return this;
