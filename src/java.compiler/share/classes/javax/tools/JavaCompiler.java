@@ -25,8 +25,6 @@
 
 package javax.tools;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Locale;

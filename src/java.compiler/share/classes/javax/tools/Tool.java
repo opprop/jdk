@@ -25,8 +25,6 @@
 
 package javax.tools;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.util.Set;
 import java.io.InputStream;
 import java.io.OutputStream;
