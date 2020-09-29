@@ -30,8 +30,6 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.concurrent.Callable;
 import javax.annotation.processing.Processor;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.framework.qual.AnnotatedFor;
 
 /**
  * Interface to invoke Java&trade; programming language compilers from
@@ -219,7 +217,6 @@ import org.checkerframework.framework.qual.AnnotatedFor;
  * @see JavaFileManager
  * @since 1.6
  */
-@AnnotatedFor("nullness")
 public interface JavaCompiler extends Tool, OptionChecker {
 
     /**
@@ -257,12 +254,12 @@ public interface JavaCompiler extends Tool, OptionChecker {
      * or if any of the given compilation units are of other kind than
      * {@linkplain JavaFileObject.Kind#SOURCE source}
      */
-    CompilationTask getTask(@Nullable Writer out,
-                            @Nullable JavaFileManager fileManager,
-                            @Nullable DiagnosticListener<? super JavaFileObject> diagnosticListener,
-                            @Nullable Iterable<String> options,
-                            @Nullable Iterable<String> classes,
-                            @Nullable Iterable<? extends JavaFileObject> compilationUnits);
+    CompilationTask getTask(Writer out,
+                            JavaFileManager fileManager,
+                            DiagnosticListener<? super JavaFileObject> diagnosticListener,
+                            Iterable<String> options,
+                            Iterable<String> classes,
+                            Iterable<? extends JavaFileObject> compilationUnits);
 
     /**
      * Returns a new instance of the standard file manager implementation
@@ -284,9 +281,9 @@ public interface JavaCompiler extends Tool, OptionChecker {
      * @return the standard file manager
      */
     StandardJavaFileManager getStandardFileManager(
-        @Nullable DiagnosticListener<? super JavaFileObject> diagnosticListener,
-        @Nullable Locale locale,
-        @Nullable Charset charset);
+        DiagnosticListener<? super JavaFileObject> diagnosticListener,
+        Locale locale,
+        Charset charset);
 
     /**
      * Interface representing a future for a compilation task.  The
@@ -329,7 +326,7 @@ public interface JavaCompiler extends Tool, OptionChecker {
          * locale
          * @throws IllegalStateException if the task has started
          */
-        void setLocale(@Nullable Locale locale);
+        void setLocale(Locale locale);
 
         /**
          * Performs this compilation task.  The compilation may only
