@@ -25,8 +25,6 @@
 
 package java.sql;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
@@ -70,7 +68,7 @@ public class SQLException extends java.lang.Exception
      * @param SQLState an XOPEN or SQL:2003 code identifying the exception
      * @param vendorCode a database vendor-specific exception code
      */
-    public SQLException(@Nullable String reason, @Nullable String SQLState, int vendorCode) {
+    public SQLException(String reason, String SQLState, int vendorCode) {
         super(reason);
         this.SQLState = SQLState;
         this.vendorCode = vendorCode;
@@ -96,7 +94,7 @@ public class SQLException extends java.lang.Exception
      * @param reason a description of the exception
      * @param SQLState an XOPEN or SQL:2003 code identifying the exception
      */
-    public SQLException(@Nullable String reason, @Nullable String SQLState) {
+    public SQLException(String reason, String SQLState) {
         super(reason);
         this.SQLState = SQLState;
         this.vendorCode = 0;
@@ -119,7 +117,7 @@ public class SQLException extends java.lang.Exception
      *
      * @param reason a description of the exception
      */
-    public SQLException(@Nullable String reason) {
+    public SQLException(String reason) {
         super(reason);
         this.SQLState = null;
         this.vendorCode = 0;
@@ -165,7 +163,7 @@ public class SQLException extends java.lang.Exception
      * may be null indicating the cause is non-existent or unknown.
      * @since 1.6
      */
-    public SQLException(@Nullable Throwable cause) {
+    public SQLException(Throwable cause) {
         super(cause);
 
         if (!(this instanceof SQLWarning)) {
@@ -187,7 +185,7 @@ public class SQLException extends java.lang.Exception
      * may be null indicating the cause is non-existent or unknown.
      * @since 1.6
      */
-    public SQLException(@Nullable String reason, @Nullable Throwable cause) {
+    public SQLException(String reason, Throwable cause) {
         super(reason,cause);
 
         if (!(this instanceof SQLWarning)) {
@@ -210,7 +208,7 @@ public class SQLException extends java.lang.Exception
      *     the cause is non-existent or unknown.
      * @since 1.6
      */
-    public SQLException(@Nullable String reason, @Nullable String sqlState, @Nullable Throwable cause) {
+    public SQLException(String reason, String sqlState, Throwable cause) {
         super(reason,cause);
 
         this.SQLState = sqlState;
@@ -236,7 +234,7 @@ public class SQLException extends java.lang.Exception
      * may be null indicating the cause is non-existent or unknown.
      * @since 1.6
      */
-    public SQLException(@Nullable String reason, @Nullable String sqlState, int vendorCode, @Nullable Throwable cause) {
+    public SQLException(String reason, String sqlState, int vendorCode, Throwable cause) {
         super(reason,cause);
 
         this.SQLState = sqlState;
@@ -255,7 +253,7 @@ public class SQLException extends java.lang.Exception
      *
      * @return the SQLState value
      */
-    public @Nullable String getSQLState() {
+    public String getSQLState() {
         return (SQLState);
     }
 
@@ -277,7 +275,7 @@ public class SQLException extends java.lang.Exception
      *         <code>null</code> if there are none
      * @see #setNextException
      */
-    public @Nullable SQLException getNextException() {
+    public SQLException getNextException() {
         return (next);
     }
 
@@ -360,7 +358,7 @@ public class SQLException extends java.lang.Exception
     /**
          * @serial
          */
-    private @Nullable String SQLState;
+    private String SQLState;
 
         /**
          * @serial
@@ -370,7 +368,7 @@ public class SQLException extends java.lang.Exception
         /**
          * @serial
          */
-    private volatile @Nullable SQLException next;
+    private volatile SQLException next;
 
     private static final AtomicReferenceFieldUpdater<SQLException,SQLException> nextUpdater =
             AtomicReferenceFieldUpdater.newUpdater(SQLException.class,SQLException.class,"next");

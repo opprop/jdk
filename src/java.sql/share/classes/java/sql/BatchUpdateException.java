@@ -25,8 +25,6 @@
 
 package java.sql;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
@@ -98,8 +96,8 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException( @Nullable String reason, @Nullable String SQLState, int vendorCode,
-                               int @Nullable [] updateCounts ) {
+  public BatchUpdateException( String reason, String SQLState, int vendorCode,
+                               int[] updateCounts ) {
       super(reason, SQLState, vendorCode);
       this.updateCounts  = (updateCounts == null) ? null : Arrays.copyOf(updateCounts, updateCounts.length);
       this.longUpdateCounts = (updateCounts == null) ? null : copyUpdateCount(updateCounts);
@@ -133,8 +131,8 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(@Nullable String reason, @Nullable String SQLState,
-                              int @Nullable [] updateCounts) {
+  public BatchUpdateException(String reason, String SQLState,
+                              int[] updateCounts) {
       this(reason, SQLState, 0, updateCounts);
   }
 
@@ -165,7 +163,7 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public  BatchUpdateException(@Nullable String reason, int @Nullable [] updateCounts) {
+  public  BatchUpdateException(String reason, int[] updateCounts) {
       this(reason, null, 0, updateCounts);
   }
 
@@ -194,7 +192,7 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(int @Nullable [] updateCounts) {
+  public BatchUpdateException(int[] updateCounts) {
       this(null, null, 0, updateCounts);
   }
 
@@ -230,7 +228,7 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(@Nullable Throwable cause) {
+  public BatchUpdateException(Throwable cause) {
       this((cause == null ? null : cause.toString()), null, 0, (int[])null, cause);
   }
 
@@ -263,7 +261,7 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(int @Nullable []updateCounts , @Nullable Throwable cause) {
+  public BatchUpdateException(int []updateCounts , Throwable cause) {
       this((cause == null ? null : cause.toString()), null, 0, updateCounts, cause);
   }
 
@@ -294,7 +292,7 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(@Nullable String reason, int @Nullable []updateCounts, @Nullable Throwable cause) {
+  public BatchUpdateException(String reason, int []updateCounts, Throwable cause) {
       this(reason, null, 0, updateCounts, cause);
   }
 
@@ -327,8 +325,8 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(@Nullable String reason, @Nullable String SQLState,
-          int @Nullable []updateCounts, @Nullable Throwable cause) {
+  public BatchUpdateException(String reason, String SQLState,
+          int []updateCounts, Throwable cause) {
       this(reason, SQLState, 0, updateCounts, cause);
   }
 
@@ -362,8 +360,8 @@ public class BatchUpdateException extends SQLException {
    * @see #BatchUpdateException(java.lang.String, java.lang.String, int, long[],
    * java.lang.Throwable)
    */
-  public BatchUpdateException(@Nullable String reason, @Nullable String SQLState, int vendorCode,
-                                int @Nullable []updateCounts,@Nullable Throwable cause) {
+  public BatchUpdateException(String reason, String SQLState, int vendorCode,
+                                int []updateCounts,Throwable cause) {
         super(reason, SQLState, vendorCode, cause);
         this.updateCounts  = (updateCounts == null) ? null : Arrays.copyOf(updateCounts, updateCounts.length);
         this.longUpdateCounts = (updateCounts == null) ? null : copyUpdateCount(updateCounts);
@@ -400,7 +398,7 @@ public class BatchUpdateException extends SQLException {
    * @since 1.3
    * @see #getLargeUpdateCounts()
    */
-  public int @Nullable [] getUpdateCounts() {
+  public int[] getUpdateCounts() {
       return (updateCounts == null) ? null : Arrays.copyOf(updateCounts, updateCounts.length);
   }
 
@@ -429,8 +427,8 @@ public class BatchUpdateException extends SQLException {
    * may be null indicating the cause is non-existent or unknown.
    * @since 1.8
    */
-  public BatchUpdateException(@Nullable String reason, @Nullable String SQLState, int vendorCode,
-          long @Nullable []updateCounts,@Nullable Throwable cause) {
+  public BatchUpdateException(String reason, String SQLState, int vendorCode,
+          long []updateCounts,Throwable cause) {
       super(reason, SQLState, vendorCode, cause);
       this.longUpdateCounts  = (updateCounts == null) ? null : Arrays.copyOf(updateCounts, updateCounts.length);
       this.updateCounts = (longUpdateCounts == null) ? null : copyUpdateCount(longUpdateCounts);
@@ -463,7 +461,7 @@ public class BatchUpdateException extends SQLException {
    * </OL>
    * @since 1.8
    */
-  public long @Nullable [] getLargeUpdateCounts() {
+  public long[] getLargeUpdateCounts() {
       return (longUpdateCounts == null) ? null :
               Arrays.copyOf(longUpdateCounts, longUpdateCounts.length);
   }
@@ -500,7 +498,7 @@ public class BatchUpdateException extends SQLException {
    * @serial
    * @since 1.8
    */
-  private  long @Nullable [] longUpdateCounts;
+  private  long[] longUpdateCounts;
 
   private static final long serialVersionUID = 5977529877145521757L;
 

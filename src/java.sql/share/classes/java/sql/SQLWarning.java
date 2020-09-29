@@ -25,8 +25,6 @@
 
 package java.sql;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 /**
  * <P>An exception that provides information on  database access
  * warnings. Warnings are silently chained to the object whose method
@@ -60,7 +58,7 @@ public class SQLWarning extends SQLException {
      * @param SQLState an XOPEN or SQL:2003 code identifying the warning
      * @param vendorCode a database vendor-specific warning code
      */
-     public SQLWarning(@Nullable String reason, @Nullable String SQLState, int vendorCode) {
+     public SQLWarning(String reason, String SQLState, int vendorCode) {
         super(reason, SQLState, vendorCode);
         DriverManager.println("SQLWarning: reason(" + reason +
                               ") SQLState(" + SQLState +
@@ -80,7 +78,7 @@ public class SQLWarning extends SQLException {
      * @param reason a description of the warning
      * @param SQLState an XOPEN or SQL:2003 code identifying the warning
      */
-    public SQLWarning(@Nullable String reason, @Nullable String SQLState) {
+    public SQLWarning(String reason, String SQLState) {
         super(reason, SQLState);
         DriverManager.println("SQLWarning: reason(" + reason +
                                   ") SQLState(" + SQLState + ")");
@@ -98,7 +96,7 @@ public class SQLWarning extends SQLException {
      *
      * @param reason a description of the warning
      */
-    public SQLWarning(@Nullable String reason) {
+    public SQLWarning(String reason) {
         super(reason);
         DriverManager.println("SQLWarning: reason(" + reason + ")");
     }
@@ -130,7 +128,7 @@ public class SQLWarning extends SQLException {
      * @param cause the underlying reason for this <code>SQLWarning</code> (which is saved for later retrieval by the <code>getCause()</code> method); may be null indicating
      *     the cause is non-existent or unknown.
      */
-    public SQLWarning(@Nullable Throwable cause) {
+    public SQLWarning(Throwable cause) {
         super(cause);
         DriverManager.println("SQLWarning");
     }
@@ -147,7 +145,7 @@ public class SQLWarning extends SQLException {
      * (which is saved for later retrieval by the <code>getCause()</code> method);
      * may be null indicating the cause is non-existent or unknown.
      */
-    public SQLWarning(@Nullable String reason, @Nullable Throwable cause) {
+    public SQLWarning(String reason, Throwable cause) {
         super(reason,cause);
         DriverManager.println("SQLWarning : reason("+ reason + ")");
     }
@@ -163,7 +161,7 @@ public class SQLWarning extends SQLException {
      * @param cause the underlying reason for this <code>SQLWarning</code> (which is saved for later retrieval by the <code>getCause()</code> method); may be null indicating
      *     the cause is non-existent or unknown.
      */
-    public SQLWarning(@Nullable String reason, @Nullable String SQLState, @Nullable Throwable cause) {
+    public SQLWarning(String reason, String SQLState, Throwable cause) {
         super(reason,SQLState,cause);
         DriverManager.println("SQLWarning: reason(" + reason +
                                   ") SQLState(" + SQLState + ")");
@@ -181,7 +179,7 @@ public class SQLWarning extends SQLException {
      * @param cause the underlying reason for this <code>SQLWarning</code> (which is saved for later retrieval by the <code>getCause()</code> method); may be null indicating
      *     the cause is non-existent or unknown.
      */
-    public SQLWarning(@Nullable String reason, @Nullable String SQLState, int vendorCode, @Nullable Throwable cause) {
+    public SQLWarning(String reason, String SQLState, int vendorCode, Throwable cause) {
         super(reason,SQLState,vendorCode,cause);
         DriverManager.println("SQLWarning: reason(" + reason +
                               ") SQLState(" + SQLState +
@@ -195,7 +193,7 @@ public class SQLWarning extends SQLException {
      * @return the next <code>SQLException</code> in the chain; <code>null</code> if none
      * @see #setNextWarning
      */
-    public @Nullable SQLWarning getNextWarning() {
+    public SQLWarning getNextWarning() {
         try {
             return ((SQLWarning)getNextException());
         } catch (ClassCastException ex) {
