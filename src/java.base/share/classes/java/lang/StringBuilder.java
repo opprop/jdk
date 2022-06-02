@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.LTLengthOf;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.regex.qual.PolyRegex;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -92,7 +93,7 @@ import jdk.internal.HotSpotIntrinsicCandidate;
  * @see         java.lang.String
  * @since       1.5
  */
-@AnnotatedFor({"lock", "nullness", "index"})
+@AnnotatedFor({"lock", "nullness", "index", "regex"})
 public final class StringBuilder
     extends AbstractStringBuilder
     implements java.io.Serializable, Comparable<StringBuilder>, CharSequence
@@ -175,7 +176,7 @@ public final class StringBuilder
     }
 
     @Override
-    public StringBuilder append(@Nullable Object obj) {
+    public StringBuilder append(@GuardSatisfied @Nullable Object obj) {
         return append(String.valueOf(obj));
     }
 
@@ -329,7 +330,7 @@ public final class StringBuilder
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
     @Override
-    public StringBuilder insert(@NonNegative int offset, @Nullable Object obj) {
+    public StringBuilder insert(@NonNegative int offset, @GuardSatisfied @Nullable Object obj) {
             super.insert(offset, obj);
             return this;
     }
@@ -459,7 +460,7 @@ public final class StringBuilder
     @SideEffectFree
     @Override
     @HotSpotIntrinsicCandidate
-    public String toString(@GuardSatisfied StringBuilder this) {
+    public @PolyRegex String toString(@GuardSatisfied @PolyRegex StringBuilder this) {
         // Create a copy, don't share the array
         return isLatin1() ? StringLatin1.newString(value, 0, count)
                           : StringUTF16.newString(value, 0, count);
