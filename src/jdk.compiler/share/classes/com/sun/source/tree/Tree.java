@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.dataflow.qual.Pure;
+
 /**
  * Common interface for all nodes in an abstract syntax tree.
  *
@@ -665,6 +667,7 @@ public interface Tree {
      *
      * @return the kind of this tree.
      */
+    @Pure
     Kind getKind();
 
     /**
