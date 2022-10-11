@@ -166,9 +166,11 @@ public class LinkedBlockingDeque<E extends Object>
     final ReentrantLock lock = new ReentrantLock();
 
     /** Condition for waiting takes */
+    @SuppressWarnings("serial") // Classes implementing Condition may be serializable.
     private final Condition notEmpty = lock.newCondition();
 
     /** Condition for waiting puts */
+    @SuppressWarnings("serial") // Classes implementing Condition may be serializable.
     private final Condition notFull = lock.newCondition();
 
     /**
