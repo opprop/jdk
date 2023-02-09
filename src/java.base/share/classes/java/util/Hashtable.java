@@ -699,10 +699,11 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
         public @NonNegative int size() {
             return count;
         }
-        public boolean contains(Object o) {
+        @Pure
+        public boolean contains(@UnknownSignedness Object o) {
             return containsKey(o);
         }
-        public boolean remove(Object o) {
+        public boolean remove(@UnknownSignedness Object o) {
             return Hashtable.this.remove(o) != null;
         }
         public void clear() {
@@ -743,7 +744,8 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
             return super.add(o);
         }
 
-        public boolean contains(Object o) {
+        @Pure
+        public boolean contains(@UnknownSignedness Object o) {
             if (!(o instanceof Map.Entry<?, ?> entry))
                 return false;
             Object key = entry.getKey();
@@ -757,7 +759,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
             return false;
         }
 
-        public boolean remove(Object o) {
+        public boolean remove(@UnknownSignedness Object o) {
             if (!(o instanceof Map.Entry<?, ?> entry))
                 return false;
             Object key = entry.getKey();
@@ -825,7 +827,8 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
         public @NonNegative int size() {
             return count;
         }
-        public boolean contains(Object o) {
+        @Pure
+        public boolean contains(@UnknownSignedness Object o) {
             return containsValue(o);
         }
         public void clear() {

@@ -27,6 +27,7 @@ package java.lang.ref;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
 
 
 /**
@@ -69,7 +70,9 @@ public class WeakReference<T> extends Reference<T> {
      * @param q the queue with which the reference is to be registered,
      *          or {@code null} if registration is not required
      */
-    public WeakReference(@Nullable T referent, @Nullable ReferenceQueue<? super T> q) {
+    @CFComment({"Nullness: q is @NonNull because it is sometimes required to be non-null",
+                "To treat it as @Nullable, see https://checkerframework.org/manual/#nullness-jdk-conservative ."})
+    public WeakReference(@Nullable T referent, ReferenceQueue<? super T> q) {
         super(referent, q);
     }
 

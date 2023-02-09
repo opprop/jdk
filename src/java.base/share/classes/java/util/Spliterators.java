@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
@@ -58,6 +59,7 @@ public final class Spliterators {
      * @return An empty spliterator
      */
     @SuppressWarnings("unchecked")
+    @SideEffectFree
     public static <T> Spliterator<T> emptySpliterator() {
         return (Spliterator<T>) EMPTY_SPLITERATOR;
     }
@@ -74,6 +76,7 @@ public final class Spliterators {
      *
      * @return An empty spliterator
      */
+    @SideEffectFree
     public static Spliterator.OfInt emptyIntSpliterator() {
         return EMPTY_INT_SPLITERATOR;
     }
@@ -90,6 +93,7 @@ public final class Spliterators {
      *
      * @return An empty spliterator
      */
+    @SideEffectFree
     public static Spliterator.OfLong emptyLongSpliterator() {
         return EMPTY_LONG_SPLITERATOR;
     }
@@ -106,6 +110,7 @@ public final class Spliterators {
      *
      * @return An empty spliterator
      */
+    @SideEffectFree
     public static Spliterator.OfDouble emptyDoubleSpliterator() {
         return EMPTY_DOUBLE_SPLITERATOR;
     }
