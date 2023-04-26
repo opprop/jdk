@@ -3,7 +3,7 @@ jobs:
 - job: build_jdk
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17-plus:latest
+  container: wmdietl/cf-ubuntu-jdk17-plus:latest
   steps:
   - bash: |
       whoami
@@ -27,7 +27,7 @@ jobs:
 - job: build_jdk17u
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17-plus:latest
+  container: wmdietl/cf-ubuntu-jdk17-plus:latest
   timeoutInMinutes: 0
   steps:
   - bash: |
@@ -79,7 +79,7 @@ jobs:
   timeoutInMinutes: 105
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk8:latest
+  container: wmdietl/cf-ubuntu-jdk8:latest
   steps:
   - checkout: self
     fetchDepth: 25
@@ -94,7 +94,7 @@ jobs:
   timeoutInMinutes: 105
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk11:latest
+  container: wmdietl/cf-ubuntu-jdk11:latest
   steps:
   - checkout: self
     fetchDepth: 25
@@ -126,7 +126,7 @@ jobs:
   timeoutInMinutes: 105
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17:latest
+  container: wmdietl/cf-ubuntu-jdk17:latest
   steps:
   - checkout: self
     fetchDepth: 25
@@ -137,11 +137,11 @@ jobs:
   - bash: (cd ../checker-framework && checker/bin-devel/test-cftests-all.sh)
     displayName: test-cftests-all.sh
 
-- job: test_cftests_all_jdk19
+- job: test_cftests_all_jdk_latest
   timeoutInMinutes: 105
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk19:latest
+  container: wmdietl/cf-ubuntu-jdk-latest:latest
   steps:
   - checkout: self
     fetchDepth: 25
@@ -155,7 +155,7 @@ jobs:
 - job: test_daikon
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17:latest
+  container: wmdietl/cf-ubuntu-jdk17:latest
   timeoutInMinutes: 70
   steps:
   - checkout: self
@@ -170,7 +170,7 @@ jobs:
 - job: test_plume_lib
   pool:
     vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17:latest
+  container: wmdietl/cf-ubuntu-jdk17:latest
   steps:
   - checkout: self
     fetchDepth: 25
