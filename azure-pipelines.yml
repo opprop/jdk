@@ -69,7 +69,7 @@ jobs:
       eval `/tmp/$USER/plume-scripts/ci-info eisop`
       cd ../jdk17u && git pull --no-edit https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH} || (git --version && git show && echo "Merge failed; see 'Pull request merge conflicts' at https://github.com/eisop/jdk/blob/master/README" && false)
     displayName: git merge
-  - bash: cd ../jdk17u && export JT_HOME=/usr/share/jtreg && bash ./configure --with-jtreg --disable-warnings-as-errors
+  - bash: cd ../jdk17u && export JT_HOME=/tmp/$USER/jtreg && bash ./configure --with-jtreg=/tmp/$USER/jtreg --disable-warnings-as-errors
     displayName: configure
   - bash: cd ../jdk17u && make jdk
     displayName: make jdk
