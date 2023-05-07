@@ -1,4 +1,4 @@
-# Typetools fork of the JDK
+# EISOP fork of the JDK
 
 This fork of the JDK contains type annotations for pluggable type-checking.
 
@@ -11,7 +11,7 @@ them cause build failures, especially in the interim builds):
 
 Annotations for classes that exist in JDK version X but were removed later
 appear in jdkX.astub files, such as jdk11.astub, in repository
-https://github.com/typetools/checker-framework/ .
+https://github.com/eisop/checker-framework/ .
 
 
 ## Building
