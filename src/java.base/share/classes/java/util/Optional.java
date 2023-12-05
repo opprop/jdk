@@ -28,6 +28,7 @@ import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.checkerframework.checker.optional.qual.EnsuresPresentIf;
 import org.checkerframework.checker.optional.qual.Present;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -35,7 +36,6 @@ import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
 import org.checkerframework.framework.qual.EnsuresQualifier;
-import org.checkerframework.framework.qual.EnsuresQualifierIf;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -109,7 +109,7 @@ public final @NonNull class Optional<T> {
      * @param <T> The type of the non-existent value
      * @return an empty {@code Optional}
      */
-    @SideEffectFree
+    @Pure
     public static<T> Optional<T> empty() {
         @SuppressWarnings("unchecked")
         Optional<T> t = (Optional<T>) EMPTY;
@@ -152,7 +152,7 @@ public final @NonNull class Optional<T> {
      */
     @SideEffectFree
     @SuppressWarnings("unchecked")
-    public static <T> Optional<T> ofNullable(@Nullable T value) {
+    public static <T> Optional<@NonNull T> ofNullable(@Nullable T value) {
         return value == null ? (Optional<T>) EMPTY
                              : new Optional<>(value);
     }
@@ -181,7 +181,7 @@ public final @NonNull class Optional<T> {
      * @return {@code true} if a value is present, otherwise {@code false}
      */
     @Pure
-    @EnsuresQualifierIf(result = true, expression = "this", qualifier = Present.class)
+    @EnsuresPresentIf(result = true, expression = "this")
     public boolean isPresent() {
         return value != null;
     }
@@ -194,7 +194,7 @@ public final @NonNull class Optional<T> {
      * @since   11
      */
     @Pure
-    @EnsuresQualifierIf(result = false, expression = "this", qualifier = Present.class)
+    @EnsuresPresentIf(result = false, expression = "this")
     public boolean isEmpty() {
         return value == null;
     }
