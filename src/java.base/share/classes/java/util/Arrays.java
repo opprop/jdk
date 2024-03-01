@@ -918,7 +918,8 @@ public class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
-    public static <T> void parallelSort(T[] a, @Nullable Comparator<? super T> cmp) {
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> void parallelSort(@UnknownSignedness T[] a, Comparator<? super T> cmp) {
         if (cmp == null)
             cmp = NaturalOrder.INSTANCE;
         int n = a.length, p, g;
@@ -977,7 +978,8 @@ public class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
-    public static <T> void parallelSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> void parallelSort(@UnknownSignedness T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                         Comparator<? super T> cmp) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (cmp == null)
@@ -1054,7 +1056,7 @@ public class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
-    public static void sort(@PolyInterned @PolyNull Object[] a) {
+    public static void sort(@PolyInterned Object[] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
         else
@@ -1119,7 +1121,7 @@ public class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
-    public static void sort(@PolyInterned @PolyNull Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(@PolyInterned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a, fromIndex, toIndex);
@@ -1243,7 +1245,8 @@ public class Arrays {
      * @throws IllegalArgumentException (optional) if the comparator is
      *         found to violate the {@link Comparator} contract
      */
-    public static <T> void sort(@PolyNull @UnknownSignedness T[] a, @Nullable Comparator<? super T> c) {
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> void sort(@UnknownSignedness T[] a, Comparator<? super T> c) {
         if (c == null) {
             sort(a);
         } else {
@@ -1255,7 +1258,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static <T> void legacyMergeSort(T[] a, @Nullable Comparator<? super T> c) {
+    private static <T> void legacyMergeSort(T[] a, Comparator<? super T> c) {
         T[] aux = a.clone();
         if (c==null)
             mergeSort(aux, a, 0, a.length, 0);
@@ -1315,7 +1318,8 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
-    public static <T> void sort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> void sort(@UnknownSignedness T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                 Comparator<? super T> c) {
         if (c == null) {
             sort(a, fromIndex, toIndex);
@@ -2190,7 +2194,8 @@ public class Arrays {
      * @throws ClassCastException if the search key is not comparable to the
      *         elements of the array.
      */
-    public static @SearchIndexFor({"#1"}) int binarySearch(@Nullable @PolyInterned Object[] a, @Nullable @PolyInterned Object key) {
+    @CFComment("nullness: array components and key need to be non-null.")
+    public static @SearchIndexFor({"#1"}) int binarySearch(@PolyInterned Object[] a, @PolyInterned Object key) {
         return binarySearch0(a, 0, a.length, key);
     }
 
@@ -2234,8 +2239,9 @@ public class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
-    public static @SearchIndexFor({"#1"}) int binarySearch(@Nullable @PolyInterned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
-                                   @Nullable @PolyInterned Object key) {
+    @CFComment("nullness: array components and key need to be non-null.")
+    public static @SearchIndexFor({"#1"}) int binarySearch(@PolyInterned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+                                   @PolyInterned Object key) {
         rangeCheck(a.length, fromIndex, toIndex);
         return binarySearch0(a, fromIndex, toIndex, key);
     }
@@ -2293,7 +2299,8 @@ public class Arrays {
      *         or the search key is not comparable to the
      *         elements of the array using this comparator.
      */
-    public static <T> @SearchIndexFor({"#1"}) int binarySearch(T[] a, T key, @Nullable Comparator<? super T> c) {
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> @SearchIndexFor({"#1"}) int binarySearch(@UnknownSignedness T[] a, T key, Comparator<? super T> c) {
         return binarySearch0(a, 0, a.length, key, c);
     }
 
@@ -2339,15 +2346,16 @@ public class Arrays {
      *         if {@code fromIndex < 0 or toIndex > a.length}
      * @since 1.6
      */
-    public static <T> @SearchIndexFor({"#1"}) int binarySearch(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
-                                       T key, @Nullable Comparator<? super T> c) {
+    @CFComment("A comparator that can handle the array elements needs to be provided. Otherwise, use method without comparator.")
+    public static <T> @SearchIndexFor({"#1"}) int binarySearch(@UnknownSignedness T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+                                       T key, Comparator<? super T> c) {
         rangeCheck(a.length, fromIndex, toIndex);
         return binarySearch0(a, fromIndex, toIndex, key, c);
     }
 
     // Like public version, but without range checks.
     private static <T> int binarySearch0(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
-                                         T key, @Nullable Comparator<? super T> c) {
+                                         T key, Comparator<? super T> c) {
         if (c == null) {
             return binarySearch0(a, fromIndex, toIndex, key);
         }
@@ -2428,8 +2436,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(long[] a, int aFromIndex, int aToIndex,
-                                 long[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolySigned long[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolySigned long[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2501,8 +2509,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(int[] a, int aFromIndex, int aToIndex,
-                                 int[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolySigned int[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolySigned int[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2574,8 +2582,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(short[] a, int aFromIndex, int aToIndex,
-                                 short[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolySigned short[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolySigned short[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2648,8 +2656,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(char[] a, int aFromIndex, int aToIndex,
-                                 char[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolySigned char[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolySigned char[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2722,8 +2730,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(byte[] a, int aFromIndex, int aToIndex,
-                                 byte[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolySigned byte[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolySigned byte[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2795,8 +2803,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(boolean[] a, int aFromIndex, int aToIndex,
-                                 boolean[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(boolean[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 boolean[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2880,8 +2888,8 @@ public class Arrays {
      * @see Double#equals(Object)
      * @since 9
      */
-    public static boolean equals(double[] a, int aFromIndex, int aToIndex,
-                                 double[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(double[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 double[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2964,8 +2972,8 @@ public class Arrays {
      * @see Float#equals(Object)
      * @since 9
      */
-    public static boolean equals(float[] a, int aFromIndex, int aToIndex,
-                                 float[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(float[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 float[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -2994,7 +3002,7 @@ public class Arrays {
      * @return {@code true} if the two arrays are equal
      */
     @Pure
-    public static boolean equals(@PolyInterned @PolyNull @PolySigned Object @GuardSatisfied  @Nullable [] a, @PolyInterned @PolyNull @PolySigned Object @GuardSatisfied  @Nullable [] a2) {
+    public static boolean equals(@PolyInterned @PolyNull @PolySigned Object @GuardSatisfied @Nullable [] a, @PolyInterned @PolyNull @PolySigned Object @GuardSatisfied @Nullable [] a2) {
         if (a==a2)
             return true;
         if (a==null || a2==null)
@@ -3047,8 +3055,8 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static boolean equals(Object[] a, int aFromIndex, int aToIndex,
-                                 Object[] b, int bFromIndex, int bToIndex) {
+    public static boolean equals(@PolyNull Object[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                 @PolyNull Object[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
@@ -3086,7 +3094,7 @@ public class Arrays {
      * @throws NullPointerException if the comparator is {@code null}
      * @since 9
      */
-    public static <T> boolean equals(T[] a, T[] a2, Comparator<? super T> cmp) {
+    public static <T> boolean equals(T @Nullable [] a, T @Nullable [] a2, Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         if (a==a2)
             return true;
@@ -3142,8 +3150,8 @@ public class Arrays {
      *         if either array or the comparator is {@code null}
      * @since 9
      */
-    public static <T> boolean equals(T[] a, int aFromIndex, int aToIndex,
-                                     T[] b, int bFromIndex, int bToIndex,
+    public static <T> boolean equals(T[] a, @IndexOrHigh({"#1"}) int aFromIndex, @IndexOrHigh({"#1"}) int aToIndex,
+                                     T[] b, @IndexOrHigh({"#4"}) int bFromIndex, @IndexOrHigh({"#4"}) int bToIndex,
                                      Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -3454,6 +3462,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
+    @CFComment("array covariance: polymorphism could e.g. allow filling an array of non-null types with null.")
     public static void fill(@PolyInterned @PolyNull @PolySigned Object[] a, @PolyInterned @PolyNull @PolySigned Object val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -3478,6 +3487,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
+    @CFComment("array covariance: polymorphism could e.g. allow filling an array of non-null types with null.")
     public static void fill(@PolyInterned @PolyNull @PolySigned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolyInterned @PolyNull @PolySigned Object val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
@@ -4168,6 +4178,8 @@ public class Arrays {
     @SafeVarargs
     @SideEffectFree
     @SuppressWarnings("varargs")
+    @CFComment({"array covariance: if a reference to the argument is retained, array covariance could allow",
+        "adding a null value to an array of non-null types."})
     public static <T> List<T> asList(T... a) {
         return new ArrayList<>(a);
     }
@@ -4552,7 +4564,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int hashCode(@PolyInterned @PolyNull @PolySigned Object a @GuardSatisfied  @Nullable []) {
+    public static int hashCode(@PolyInterned @PolyNull @PolySigned Object a @GuardSatisfied @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4594,7 +4606,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static int deepHashCode(@PolyInterned @PolyNull @PolySigned Object a @GuardSatisfied  @Nullable []) {
+    public static int deepHashCode(@PolyInterned @PolyNull @PolySigned Object a @GuardSatisfied @Nullable []) {
         if (a == null)
             return 0;
 
@@ -4668,7 +4680,7 @@ public class Arrays {
      * @since 1.5
      */
     @Pure
-    public static boolean deepEquals(@PolyInterned @PolyNull @PolySigned Object @GuardSatisfied  @Nullable [] a1, @PolyInterned @PolyNull @PolySigned Object @GuardSatisfied  @Nullable [] a2) {
+    public static boolean deepEquals(@PolyInterned @PolyNull @PolySigned Object @GuardSatisfied @Nullable [] a1, @PolyInterned @PolyNull @PolySigned Object @GuardSatisfied @Nullable [] a2) {
         if (a1 == a2)
             return true;
         if (a1 == null || a2==null)
@@ -5669,7 +5681,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(boolean[] a, boolean[] b) {
+    public static int compare(boolean @Nullable [] a, boolean @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -5805,7 +5817,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(byte[] a, byte[] b) {
+    public static int compare(byte @Nullable [] a, byte @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -5933,7 +5945,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compareUnsigned(@Unsigned byte[] a, @Unsigned byte[] b) {
+    public static int compareUnsigned(@Unsigned byte @Nullable [] a, @Unsigned byte @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6060,7 +6072,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(short[] a, short[] b) {
+    public static int compare(short @Nullable [] a, short @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6188,7 +6200,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compareUnsigned(@Unsigned short[] a, @Unsigned short[] b) {
+    public static int compareUnsigned(@Unsigned short @Nullable [] a, @Unsigned short @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6314,7 +6326,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(char[] a, char[] b) {
+    public static int compare(char @Nullable [] a, char @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6449,7 +6461,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(int[] a, int[] b) {
+    public static int compare(int @Nullable [] a, int @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6577,7 +6589,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compareUnsigned(@Unsigned int[] a, @Unsigned int[] b) {
+    public static int compareUnsigned(@Unsigned int @Nullable [] a, @Unsigned int @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6703,7 +6715,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(long[] a, long[] b) {
+    public static int compare(long @Nullable [] a, long @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6831,7 +6843,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compareUnsigned(@Unsigned long[] a, @Unsigned long[] b) {
+    public static int compareUnsigned(@Unsigned long @Nullable [] a, @Unsigned long @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6957,7 +6969,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(float[] a, float[] b) {
+    public static int compare(float @Nullable [] a, float @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7092,7 +7104,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static int compare(double[] a, double[] b) {
+    public static int compare(double @Nullable [] a, double @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7237,7 +7249,7 @@ public class Arrays {
      *         lexicographically greater than the second array
      * @since 9
      */
-    public static <T extends Comparable<? super T>> int compare(T[] a, T[] b) {
+    public static <T extends Comparable<? super T>> int compare(@PolyNull T @Nullable [] a, @PolyNull T @Nullable [] b) {
         if (a == b)
             return 0;
         // A null array is less than a non-null array
@@ -7391,7 +7403,7 @@ public class Arrays {
      * @throws NullPointerException if the comparator is {@code null}
      * @since 9
      */
-    public static <T> int compare(T[] a, T[] b,
+    public static <T> int compare(T @Nullable [] a, T @Nullable [] b,
                                   Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         if (a == b)
@@ -8555,7 +8567,7 @@ public class Arrays {
      *         if either array is {@code null}
      * @since 9
      */
-    public static int mismatch(Object[] a, Object[] b) {
+    public static int mismatch(@PolyNull Object[] a, @PolyNull Object[] b) {
         int length = Math.min(a.length, b.length); // Check null array refs
         if (a == b)
             return -1;
@@ -8630,8 +8642,8 @@ public class Arrays {
      * @since 9
      */
     public static int mismatch(
-            Object[] a, int aFromIndex, int aToIndex,
-            Object[] b, int bFromIndex, int bToIndex) {
+            @PolyNull Object[] a, int aFromIndex, int aToIndex,
+            @PolyNull Object[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
         rangeCheck(b.length, bFromIndex, bToIndex);
 
