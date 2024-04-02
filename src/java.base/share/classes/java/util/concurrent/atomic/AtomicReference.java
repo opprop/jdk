@@ -36,7 +36,9 @@
 package java.util.concurrent.atomic;
 
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -51,8 +53,14 @@ import java.util.function.UnaryOperator;
  * @author Doug Lea
  * @param <V> The type of object referred to by this reference
  */
-@AnnotatedFor({"interning"})
-public @UsesObjectEquals class AtomicReference<V> implements java.io.Serializable {
+@AnnotatedFor({"interning", "nullness"})
+@CFComment({"nullness: It is permitted to use AtomicReference<@NonNull MyType>",
+            "but in such a case:",
+            "* the user must use the one-arg constructor to provide an initialValue",
+            "* the user needs to suppress a warning:",
+            "@SuppressWarnings(\"nullness:type.argument\") // initialValue is provided"
+        })
+public @UsesObjectEquals class AtomicReference<@Nullable V> implements java.io.Serializable {
     private static final long serialVersionUID = -1848883965231344442L;
     private static final VarHandle VALUE;
     static {
