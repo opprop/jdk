@@ -641,7 +641,7 @@ public interface Map<K, V> {
          * @since 17
          */
         @SuppressWarnings("unchecked")
-        public static <K, V> Map.Entry<K, V> copyOf(Map.Entry<? extends K, ? extends V> e) {
+        public static <K extends Object, V extends Object> Map.Entry<K, V> copyOf(Map.Entry<? extends K, ? extends V> e) {
             Objects.requireNonNull(e);
             if (e instanceof KeyValueHolder) {
                 return (Map.Entry<K, V>) e;
