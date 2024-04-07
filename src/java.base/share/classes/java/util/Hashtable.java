@@ -917,7 +917,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     @Override
     @Pure
-    public synchronized V getOrDefault(@GuardSatisfied @UnknownSignedness Object key, V defaultValue) {
+    public synchronized @PolyNull V getOrDefault(@GuardSatisfied @UnknownSignedness Object key, @PolyNull V defaultValue) {
         V result = get(key);
         return (null == result) ? defaultValue : result;
     }
@@ -965,7 +965,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     @Override
-    public synchronized V putIfAbsent(K key, V value) {
+    public synchronized @Nullable V putIfAbsent(K key, V value) {
         Objects.requireNonNull(value);
 
         // Makes sure the key is not already in the hashtable.
@@ -1036,7 +1036,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
     }
 
     @Override
-    public synchronized V replace(K key, V value) {
+    public synchronized @Nullable V replace(K key, V value) {
         Objects.requireNonNull(value);
         Entry<?,?> tab[] = table;
         int hash = key.hashCode();
@@ -1193,7 +1193,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
      * remapping function modified this map
      */
     @Override
-    public synchronized @PolyNull V merge(K key, @NonNull V value, BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
+    public synchronized @PolyNull V merge(K key, V value, BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
 
         Entry<?,?> tab[] = table;
